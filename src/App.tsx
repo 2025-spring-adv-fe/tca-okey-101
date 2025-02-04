@@ -10,7 +10,7 @@ function App() {
         TCA Okey 101
       </h1>
       <button
-        className='btn btn-primary'
+        className='btn btn-success btn-soft btn-xl'
       >
         Play Okey 101
       </button>
