@@ -5,6 +5,8 @@ import {
   , Route
 } from 'react-router';
 import { Home } from './Home';
+import { Setup } from './Setup';
+import { Play } from './Play';
 
 
 
@@ -18,9 +20,21 @@ const App = () => {
       <HashRouter>
         <Routes>
           <Route
-            path='/'
+            path='/Home'
             element={
               <Home />
+            }
+          />
+          <Route
+            path='/Setup'
+            element={
+              <Setup />
+            }
+          />
+          <Route
+            path='/Play'
+            element={
+              <Play />
             }
           />
         </Routes>
