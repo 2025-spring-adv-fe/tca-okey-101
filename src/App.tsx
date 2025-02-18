@@ -18,7 +18,23 @@ function App() {
         className='mt-3 text-xl font-semi-bold'
       >
         Leaderboard...
-      </h2>
+      </h2>   
+      <div 
+        className="card bg-base-100"
+      >
+        <div 
+          className="card-body"
+        >
+          <h2 
+            className="card-title"
+          >
+            Leaderboard...
+          </h2>
+          <p>
+            Leaderboard comming soon
+          </p>
+        </div>
+      </div>    
     </div>
   )
 }
