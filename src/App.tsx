@@ -1,36 +1,44 @@
 import './App.css'
+import {
+  HashRouter
+  , Routes
+  , Route
+} from 'react-router';
+import { Home } from './Home';
+import { Setup } from './Setup';
+import { Play } from './Play';
 
-interface AppProps {
-  timestamp: string;
-  magicNumber: number;
-}
-const App: React.FC<AppProps> = (
-  {
-    timestamp
-    , magicNumber
-  }
-) => {
+
+
+const App = () => {
 
   console.log(
     "App Component Func Called"
-    , timestamp
-    , magicNumber
   );
   return (
-    <div>
-      <h1
-        className='text-2xl font-bold'
-      >
-        TCA Okey 101
-      </h1>
-      <p>
-        { timestamp} - {magicNumber}
-      </p>
-      <button
-        className='btn btn-success btn-active btn-xl'
-      >
-        Play Okey 101
-      </button>
+    <div className='p-4'>
+      <HashRouter>
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <Home />
+            }
+          />
+          <Route
+            path='/Setup'
+            element={
+              <Setup />
+            }
+          />
+          <Route
+            path='/Play'
+            element={
+              <Play />
+            }
+          />
+        </Routes>
+      </HashRouter>
     </div>
   )
 }
