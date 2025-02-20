@@ -12,7 +12,7 @@ export const Play = () => {
         <button 
           className="btn btn-active btn-success btn-lg mt-4"
           onClick={
-            () => nav(-2)
+            () => nav(-2) // Back to the top
           }  
         >
           Done
