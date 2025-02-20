@@ -20,7 +20,7 @@ const App = () => {
       <HashRouter>
         <Routes>
           <Route
-            path='/Home'
+            path='/'
             element={
               <Home />
             }
