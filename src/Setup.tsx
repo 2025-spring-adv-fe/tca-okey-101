@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router";
 
-export const Setup = () => {
+interface SetupProps {
+  totalGameCount: number;
+}
+
+export const Setup: React.FC<SetupProps> = () => {
 
   const foobarcat = useNavigate(); //Just for fun :)
 
