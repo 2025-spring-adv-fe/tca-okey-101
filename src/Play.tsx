@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router";
+import { useState } from "react";
 
 export const Play = () => {
 
   const nav = useNavigate();
 
-  let turnNumber = 6;
+  const [turnNumber, setTurnNumber] =useState(6);
 
     return (
       <>
@@ -17,7 +18,7 @@ export const Play = () => {
             className="btn btn-xs btn-outline btn-light ml-4"
             onClick={
               () => { 
-                turnNumber = turnNumber + 1;
+                setTurnNumber(turnNumber +1);
                 console.log(turnNumber);
               }
             }
