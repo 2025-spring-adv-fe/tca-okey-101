@@ -66,7 +66,8 @@ const App = () => {
 //
 // Hooks...
 //
-  const [GameResults, setGameResults] = useState(dummyGameResults);
+  const [GameResults, setGameResults] = useState<GameResult[]>(dummyGameResults);
+  //const [GameResults, setGameResults] = useState<GameResult[]>([]);
 
 //
 // Other codes (not hooks)...
