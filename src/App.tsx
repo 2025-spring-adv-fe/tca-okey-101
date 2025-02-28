@@ -8,7 +8,7 @@ import { Home } from './Home';
 import { Setup } from './Setup';
 import { Play } from './Play';
 import { useState } from 'react';
-import { GameResult } from './GameResults';
+import { GameResult, getLeaderboard } from './GameResults';
 
 const dummyGameResults: GameResult[] = [
   {
@@ -74,6 +74,9 @@ const [GameResults, setGameResults] = useState(dummyGameResults);
             element={
               <Home
                 totalGameCount={GameResults.length}
+                leaderboardData={
+                  getLeaderboard(GameResults)
+                }
               />
             }
           />

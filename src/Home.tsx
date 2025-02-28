@@ -1,13 +1,16 @@
 import { useNavigate } from "react-router";
+import { LeaderboardEntry } from "./GameResults";
 
 interface HomeProps {
   totalGameCount: number;
+  leaderboardData: LeaderboardEntry[];
 }
 
 export const Home: React.FC<HomeProps> = ({
   totalGameCount
+  , leaderboardData
 }) => {
-
+  console.log(leaderboardData);
   // Use a react hook for button navigation...
   const nav = useNavigate();
 
