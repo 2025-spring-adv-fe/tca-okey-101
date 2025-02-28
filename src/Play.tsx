@@ -3,12 +3,10 @@ import { useState } from "react";
 
 interface PlayProps {
   totalGameCount: number;
-  setTotalGameCount: (newValue: number) => void;
 };
 
 export const Play: React.FC<PlayProps> = ({
   totalGameCount: fooBarCat
-  , setTotalGameCount
 }) => {
 
   const nav = useNavigate();
@@ -39,7 +37,6 @@ export const Play: React.FC<PlayProps> = ({
           onClick={
             () => {
               nav(-2)
-              setTotalGameCount(fooBarCat + 1);
             }
           }  
         >

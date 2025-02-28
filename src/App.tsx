@@ -63,7 +63,7 @@ const App = () => {
     "App Component Func Called"
   );
 
-const [totalGameCount, setTotalGameCount] = useState(0);
+const [GameResults, setGameResults] = useState(dummyGameResults);
 
   return (
     <div className='p-4'>
@@ -73,7 +73,7 @@ const [totalGameCount, setTotalGameCount] = useState(0);
             path='/'
             element={
               <Home
-                totalGameCount={totalGameCount}
+                totalGameCount={GameResults.length}
               />
             }
           />
@@ -81,7 +81,7 @@ const [totalGameCount, setTotalGameCount] = useState(0);
             path='/Setup'
             element={
               <Setup
-                totalGameCount={totalGameCount}
+                totalGameCount={GameResults.length}
               />
             }
           />
@@ -89,8 +89,7 @@ const [totalGameCount, setTotalGameCount] = useState(0);
             path='/Play'
             element={
               <Play
-              totalGameCount={totalGameCount} 
-              setTotalGameCount={setTotalGameCount}
+              totalGameCount={GameResults.length} 
               />
             }
           />
