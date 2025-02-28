@@ -7,40 +7,82 @@ interface HomeProps {
 }
 
 export const Home: React.FC<HomeProps> = ({
-  totalGameCount
-  , leaderboardData
+  totalGameCount,
+  leaderboardData,
 }) => {
   console.log(leaderboardData);
   // Use a react hook for button navigation...
   const nav = useNavigate();
 
-    return (
-      <>
-        <h3 className='text-2x1 font-bold'>
-          Home ({totalGameCount} games played)
-        </h3>
-        <button 
-          className="btn btn-active btn-success btn-lg mt-4"
-          onClick={
-            () => nav("/Setup")
-          }
-        >
-          Play Okey 101
-        </button>
-        <div className="card w-full bg-base-100 card-md shadow-lg mt-4">
+  return (
+    <>
+      <h3 className="text-2x1 font-bold">
+        Home ({totalGameCount} games played)
+      </h3>
+      <button
+        className="btn btn-active btn-success btn-lg mt-4"
+        onClick={() => nav("/Setup")}
+      >
+        Play Okey 101
+      </button>
+      <div className="card w-full bg-base-100 card-md shadow-lg mt-4">
+        <div className="card-body">
+          <h2 className="card-title">Leaderboard</h2>
+
           <div 
-            className="card-body"
+            className="overflow-x-auto"
           >
-            <h2 
-              className="card-title"
+            <table 
+              className="table"
             >
-              Leaderboard
-            </h2>
-            <p>
-              Leaderboard goes here!!!
-            </p>
+              {/* head */}
+              <thead>
+                <tr>
+                  <th>
+                    W
+                  </th>
+                  <th>
+                    L
+                  </th>
+                  <th>
+                    AVG
+                  </th>
+                  <th>
+                    PLAYER
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+
+                {
+                  leaderboardData.map(
+                    x => (
+                      <tr>
+                        <td>
+                          {x.wins}
+                        </td>
+                        <td>
+                          {x.losses}
+                        </td>
+                        <td>
+                          {x.average}
+                        </td>
+                        <td>
+                          {x.player}
+                        </td>
+                      </tr>
+                    )
+                  )
+                }
+
+
+
+                
+              </tbody>
+            </table>
           </div>
         </div>
-      </>
-    );
-  };
+      </div>
+    </>
+  );
+};
