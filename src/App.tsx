@@ -76,14 +76,24 @@ const addNewGameResult = (newGameResult: GameResult) => setGameResults(
 
 
   return (
-    <div className='p-4'>
+    <div 
+      className='p-0'
+    >
+      <div 
+        className="navbar bg-base-300 shadow-lg"
+      >
+        <h1 
+          className="text-xl font-bold"
+        >
+          Okey 101
+        </h1>
+      </div>
       <HashRouter>
         <Routes>
           <Route
             path='/'
             element={
               <Home
-                totalGameCount={GameResults.length}
                 leaderboardData={
                   getLeaderboard(GameResults)
                 }
@@ -93,16 +103,13 @@ const addNewGameResult = (newGameResult: GameResult) => setGameResults(
           <Route
             path='/Setup'
             element={
-              <Setup
-                totalGameCount={GameResults.length}
-              />
+              <Setup />
             }
           />
           <Route
             path='/Play'
             element={
               <Play
-              totalGameCount={GameResults.length} 
               addNewGameResult={addNewGameResult}
               />
             }
