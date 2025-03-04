@@ -64,6 +64,7 @@ const App = () => {
   const [GameResults, setGameResults] = useState<GameResult[]>(dummyGameResults);
   //const [GameResults, setGameResults] = useState<GameResult[]>([]);
 
+  const[title, setTitle] = useState("Okey 101");
 //
 // Other codes (not hooks)...
 //
@@ -85,7 +86,7 @@ const addNewGameResult = (newGameResult: GameResult) => setGameResults(
         <h1 
           className="text-xl font-bold"
         >
-          Okey 101
+          { title }
         </h1>
       </div>
       <HashRouter>
@@ -97,13 +98,16 @@ const addNewGameResult = (newGameResult: GameResult) => setGameResults(
                 leaderboardData={
                   getLeaderboard(GameResults)
                 }
+                setTitle={setTitle}
               />
             }
           />
           <Route
             path='/Setup'
             element={
-              <Setup />
+              <Setup 
+                setTitle={setTitle}
+              />
             }
           />
           <Route
@@ -111,6 +115,7 @@ const addNewGameResult = (newGameResult: GameResult) => setGameResults(
             element={
               <Play
               addNewGameResult={addNewGameResult}
+              setTitle={setTitle}
               />
             }
           />
