@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router";
 import { LeaderboardEntry } from "./GameResults";
+import { useEffect } from "react";
 
-export const appTitle = "Okey 101"
+export const AppTitle = "Okey 101"
 
 interface HomeProps {
   leaderboardData: LeaderboardEntry[];
@@ -12,7 +13,12 @@ export const Home: React.FC<HomeProps> = ({
   leaderboardData
   , setTitle
 }) => {
-  setTitle(appTitle);
+
+  useEffect(
+    () => setTitle(AppTitle)
+    , []
+  );
+
   // Use a react hook for button navigation...
   const nav = useNavigate();
 
