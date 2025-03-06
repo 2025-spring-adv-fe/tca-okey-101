@@ -4,7 +4,7 @@ import {
   , Routes
   , Route
 } from 'react-router';
-import { Home } from './Home';
+import { AppTitle, Home } from './Home';
 import { Setup } from './Setup';
 import { Play } from './Play';
 import { useState } from 'react';
@@ -64,7 +64,7 @@ const App = () => {
   const [GameResults, setGameResults] = useState<GameResult[]>(dummyGameResults);
   //const [GameResults, setGameResults] = useState<GameResult[]>([]);
 
-  const[title, setTitle] = useState("Okey 101");
+  const[title, setTitle] = useState(AppTitle);
 //
 // Other codes (not hooks)...
 //
