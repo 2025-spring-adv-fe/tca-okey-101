@@ -8,7 +8,7 @@ import { AppTitle, Home } from './Home';
 import { Setup } from './Setup';
 import { Play } from './Play';
 import { useState } from 'react';
-import { GameResult, getGeneralFacts, getLeaderboard } from './GameResults';
+import { GameResult, getGeneralFacts, getLeaderboard, getPreviousPlayers } from './GameResults';
 
 const dummyGameResults: GameResult[] = [
   {
@@ -21,22 +21,33 @@ const dummyGameResults: GameResult[] = [
       , start: "2025-03-05T18:40:27.576Z"
       , end: "2025-03-05T18:45:42.576Z"
   }
+  , {
+      winner: "Ron"
+      , players: [
+          "Hermione"
+          , "Ron"
+      ]
+      , start: "2025-03-05T18:40:27.576Z"
+      , end: "2025-03-05T18:45:42.576Z"        
+  }
 ];
 
 const App = () => {
 //
 // Hooks...
 //
-  const [GameResults, setGameResults] = useState<GameResult[]>(dummyGameResults);
-  //const [GameResults, setGameResults] = useState<GameResult[]>([]);
+  const [gameResults, setGameResults] = useState<GameResult[]>(dummyGameResults);
+  //const [gameResults, setGameResults] = useState<GameResult[]>([]);
 
   const[title, setTitle] = useState(AppTitle);
+
+  const [currentPlayers, setCurrentPlayers] = useState<string[]>([]);
 //
 // Other codes (not hooks)...
 //
 const addNewGameResult = (newGameResult: GameResult) => setGameResults(
   [
-    ...GameResults
+    ...gameResults
     , newGameResult
   ]
 );
@@ -55,41 +66,48 @@ const addNewGameResult = (newGameResult: GameResult) => setGameResults(
           { title }
         </h1>
       </div>
-      <HashRouter>
-        <Routes>
-          <Route
-            path='/'
-            element={
-              <Home
-                leaderboardData={
-                  getLeaderboard(GameResults)
-                }
+      <div
+        className="p-4"
+      >
+        <HashRouter>
+          <Routes>
+            <Route
+              path='/'
+              element={
+                <Home
+                  leaderboardData={
+                    getLeaderboard(gameResults)
+                  }
+                  setTitle={setTitle}
+                  generalFacts={
+                    getGeneralFacts(gameResults)
+                  }
+                />
+              }
+            />
+            <Route
+              path='/Setup'
+              element={
+                <Setup 
+                  setTitle={setTitle}
+                  previousPlayers={getPreviousPlayers(gameResults)}
+                  setCurrentPlayers={setCurrentPlayers}
+                />
+              }
+            />
+            <Route
+              path='/Play'
+              element={
+                <Play
+                addNewGameResult={addNewGameResult}
                 setTitle={setTitle}
-                generalFacts={
-                  getGeneralFacts(GameResults)
-                }
-              />
-            }
-          />
-          <Route
-            path='/Setup'
-            element={
-              <Setup 
-                setTitle={setTitle}
-              />
-            }
-          />
-          <Route
-            path='/Play'
-            element={
-              <Play
-              addNewGameResult={addNewGameResult}
-              setTitle={setTitle}
-              />
-            }
-          />
-        </Routes>
-      </HashRouter>
+                currentPlayers={currentPlayers}
+                />
+              }
+            />
+          </Routes>
+        </HashRouter>
+      </div>
     </div>
   )
 }
