@@ -20,6 +20,10 @@ export const Play: React.FC<PlayProps> = ({
 
   const [turnNumber, setTurnNumber] =useState(0);
 
+  const [startTimestamp] = useState(
+    new Date().toISOString()
+  );
+
     return (
       <>
         <h4 className="text-lg font-semibold">
@@ -46,6 +50,8 @@ export const Play: React.FC<PlayProps> = ({
                   "Barbie"
                   , "Ken"
                 ]
+                , start: startTimestamp
+                , end: new Date().toISOString()
               });
               nav(-2)
             }
