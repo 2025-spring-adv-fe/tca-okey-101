@@ -16,10 +16,6 @@ export const Home: React.FC<HomeProps> = ({
   , generalFacts
 }) => {
 
-  console.log(
-    generalFacts
-  );
-
   useEffect(
     () => setTitle(AppTitle)
     , []
