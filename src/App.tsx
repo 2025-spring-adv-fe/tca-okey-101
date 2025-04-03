@@ -42,6 +42,8 @@ const App = () => {
   const[title, setTitle] = useState(AppTitle);
 
   const [currentPlayers, setCurrentPlayers] = useState<string[]>([]);
+
+  const [darkMode, setDarkMode] = useState(false);
 //
 // Other codes (not hooks)...
 //
@@ -55,7 +57,8 @@ const addNewGameResult = (newGameResult: GameResult) => setGameResults(
 
   return (
     <div 
-      className='p-0'
+      className='p-0 overflow-x-hidden min-h-screen'
+      data-theme={darkMode ? "dark" : "light"}
     >
       <div 
         className="navbar bg-base-300 shadow-lg shadow-lg overflow-x-hidden flex"
@@ -67,7 +70,12 @@ const addNewGameResult = (newGameResult: GameResult) => setGameResults(
         </h1>
         <label className="swap swap-rotate ml-auto">
         {/* this hidden checkbox controls the state */}
-        <input type="checkbox" />
+        <input 
+          type="checkbox"
+          onClick={
+            () => setDarkMode(!darkMode)
+          }
+        />
 
         {/* sun icon */}
         <svg
