@@ -19,7 +19,7 @@ export const Setup: React.FC<SetupProps> = ({
 
   useEffect(
     () => setTitle("Setup")
-    , []
+    , [setTitle]
   );
   const nav = useNavigate(); 
 
@@ -48,6 +48,7 @@ export const Setup: React.FC<SetupProps> = ({
       newPlayerName.length === 0
         || duplicatePlayerName
     ) {
+      alert("Please enter a unique player name.");
       return;
     }
     setAvailablePlayers(
@@ -108,6 +109,13 @@ export const Setup: React.FC<SetupProps> = ({
             onChange={
               (e) => setNewPlayerName(e.target.value)
             } 
+            onKeyDown={
+              (e) => {
+                if (e.key === 'Enter') {
+                  validateAndAddNewPlayer();
+                }
+              }
+            }
           />
           <button 
             className="btn btn-outline btn-neutral ml-2"
