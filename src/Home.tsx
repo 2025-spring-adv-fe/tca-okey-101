@@ -172,7 +172,7 @@ export const Home: React.FC<HomeProps> = ({
         </div>
       </div>
       <div
-        className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
+        className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-success"
       >
       <div
           className="card-body p-0"
@@ -239,7 +239,7 @@ export const Home: React.FC<HomeProps> = ({
           </div>
       </div>
       <div
-          className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
+          className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-success"
       >
           <div
               className="card-body p-0"
@@ -250,9 +250,8 @@ export const Home: React.FC<HomeProps> = ({
                   Game Durations
               </h2>
               <p className="text-sm ml-3 -mt-2 mb-2 text-gray-500">
-                Average game time grouped by player count
+                Average duration by number of players
               </p>
-              <p className="text-sm ml-3 -mt-2 mb-2 text-gray-500">Average duration by number of players</p>
               {
                   gameDurationData.length > 0 
                       ? (
@@ -307,7 +306,7 @@ export const Home: React.FC<HomeProps> = ({
           </div>
       </div>
       <div
-        className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
+        className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-success"
       >
         <div
           className="card-body p-0"
@@ -371,7 +370,7 @@ export const Home: React.FC<HomeProps> = ({
         </div>
       </div>
       <div
-                className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
+                className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-success"
             >
                 <div
                     className="card-body p-0"

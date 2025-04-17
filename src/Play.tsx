@@ -42,6 +42,7 @@ export const Play: React.FC<PlayProps> = ({
 
   const setGoOut = (player: string) => {
     setGoOuts((prev) => [...prev, player]);
+    addScore(player, 0);
   };
 
   const getTotal = (player: string): number => {
@@ -50,25 +51,40 @@ export const Play: React.FC<PlayProps> = ({
   };
 
   const getWinners = (): string[] => {
-    const playersWithScores: [string, number][] = currentPlayers.map((p) => [p, getTotal(p)]);
-    const min = Math.min(...playersWithScores.map(([, t]) => t));
-    return playersWithScores.filter(([, t]) => t === min).map(([p]) => p);
+    const playersWithScores: [string, number][] = currentPlayers.map((p) => [
+      p,
+      getTotal(p),
+    ]);
+    const validPlayers = playersWithScores.filter(([, total]) => total <= 101);
+
+    if (validPlayers.length === 0) return []; // No valid winners
+
+    const min = Math.min(...validPlayers.map(([, total]) => total));
+    return validPlayers
+      .filter(([, total]) => total === min)
+      .map(([player]) => player);
   };
 
   const getOrderedByScore = (): string[] =>
-  currentPlayers
-    .slice()
-    .sort((a, b) => getTotal(a) - getTotal(b));
+    currentPlayers.slice().sort((a, b) => getTotal(a) - getTotal(b));
 
   const possibleWinners = getWinners();
 
   const finishGame = (winner: string) => {
+    const totalScores: [string, number][] = currentPlayers.map((p) => [
+      p,
+      getTotal(p),
+    ]);
+
+    const orderedByScore = getOrderedByScore();
+
     addNewGameResult({
       winner,
-      players: getOrderedByScore(),
+      players: orderedByScore,
       start: startTimestamp,
       end: new Date().toISOString(),
       scores: Array.from(scores.entries()),
+      totalScores,
       goOuts,
     });
     nav(-2);
@@ -76,10 +92,12 @@ export const Play: React.FC<PlayProps> = ({
 
   return (
     <div className="p-4 space-y-6">
-      <div className="card bg-base-100 shadow-md">
+      <div className="card bg-base-100 shadow-md p-2 sm:p-4">
         <div className="card-body">
           <h2 className="card-title">Okey 101 Score Tracker</h2>
-          <p className="text-sm text-gray-500">Track players' scores hand by hand</p>
+          <p className="text-sm text-gray-500">
+            Track players' scores hand by hand
+          </p>
           <div className="overflow-x-auto">
             <table className="table table-zebra">
               <thead>
@@ -95,9 +113,9 @@ export const Play: React.FC<PlayProps> = ({
                 {getOrderedByScore().map((player) => (
                   <tr key={player}>
                     <td>{player}</td>
-                    <td className="space-x-1">
+                    <td className="flex flex-wrap gap-1">
                       {(scores.get(player) ?? []).map((s, i) => (
-                        <span key={i} className="badge">
+                        <span key={i} className="badge badge-sm text-xs">
                           {s}
                         </span>
                       ))}
@@ -105,7 +123,7 @@ export const Play: React.FC<PlayProps> = ({
                     <td>{getTotal(player)}</td>
                     <td>
                       <button
-                        className="btn btn-xs btn-outline btn-success"
+                        className="btn btn-xs btn-outline btn-success whitespace-nowrap px-3"
                         onClick={() => setGoOut(player)}
                       >
                         Go Out
@@ -127,18 +145,18 @@ export const Play: React.FC<PlayProps> = ({
         </div>
       </div>
 
-      <div className="card bg-base-100 shadow-md">
+      <div className="card bg-base-100 shadow-md p-2 sm:p-4">
         <div className="card-body">
           <h3 className="card-title">Add Score</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             {getOrderedByScore().map((p) => (
               <div key={p} className="flex flex-col items-start">
-                <span className="font-semibold">{p}</span>
-                <div className="join mt-1">
-                  {[-10, -5, 0, 5, 10, 20, 50].map((v) => (
+                <span className="font-semibold mb-1">{p}</span>
+                <div className="flex flex-wrap gap-1">
+                  {[0, 5, 10, 20, 50, 101, 202].map((v) => (
                     <button
                       key={v}
-                      className="btn btn-sm btn-outline join-item"
+                      className="btn btn-xs btn-outline"
                       onClick={() => addScore(p, v)}
                     >
                       {v > 0 ? "+" + v : v}
@@ -151,20 +169,30 @@ export const Play: React.FC<PlayProps> = ({
         </div>
       </div>
 
-      <div className="card bg-base-100 shadow-md">
+      <div className="card bg-base-100 shadow-md p-2 sm:p-4">
         <div className="card-body">
           <h3 className="card-title">Finish Game</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-            {possibleWinners.map((p) => (
-              <button
-                key={p}
-                className="btn btn-success"
-                onClick={() => finishGame(p)}
-              >
-                {p} Wins!
-              </button>
-            ))}
-            <button className="btn btn-outline" onClick={() => nav(-2)}>
+
+          {possibleWinners.length === 0 ? (
+            <p className="text-warning text-sm mt-2 ml-1">
+              No eligible winner — all players are over 101 points.
+            </p>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
+              {possibleWinners.map((p) => (
+                <button
+                  key={p}
+                  className="btn btn-success"
+                  onClick={() => finishGame(p)}
+                >
+                  {p} Wins!
+                </button>
+              ))}
+            </div>
+          )}
+
+          <div className="mt-4">
+            <button className="btn btn-outline w-full" onClick={() => nav(-2)}>
               Cancel
             </button>
           </div>

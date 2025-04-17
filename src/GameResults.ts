@@ -15,6 +15,7 @@ export interface GameResult {
     start: string;
     end: string;
     scores: [string, number[]][];
+    totalScores: [string, number][]; // final totals per player
     goOuts: string[];
 };
 export interface LeaderboardEntry {
