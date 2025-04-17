@@ -91,8 +91,8 @@ export const Play: React.FC<PlayProps> = ({
   };
 
   return (
-    <div className="p-4 space-y-6">
-      <div className="card bg-base-100 shadow-md p-2 sm:p-4">
+    <div className="p-2 space-y-6">
+      <div className="card bg-base-100 shadow-md p-2">
         <div className="card-body">
           <h2 className="card-title">Okey 101 Score Tracker</h2>
           <p className="text-sm text-gray-500">
@@ -145,7 +145,7 @@ export const Play: React.FC<PlayProps> = ({
         </div>
       </div>
 
-      <div className="card bg-base-100 shadow-md p-2 sm:p-4">
+      <div className="card bg-base-100 shadow-md p-2">
         <div className="card-body">
           <h3 className="card-title">Add Score</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -169,7 +169,7 @@ export const Play: React.FC<PlayProps> = ({
         </div>
       </div>
 
-      <div className="card bg-base-100 shadow-md p-2 sm:p-4">
+      <div className="card bg-base-100 shadow-md p-2">
         <div className="card-body">
           <h3 className="card-title">Finish Game</h3>
 

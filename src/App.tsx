@@ -31,6 +31,7 @@ const dummyGameResults: GameResult[] = [
       , start: "2025-03-01T18:20:41.576Z"
       , end: "2025-03-01T18:35:42.576Z"
       , scores: []
+      , totalScores: [] //we don't know yet
       , goOuts: ["", "", "", "", "", "", "", "", "", "", ""]
   }
   , {
@@ -42,6 +43,7 @@ const dummyGameResults: GameResult[] = [
       , start: "2025-03-05T18:40:27.576Z"
       , end: "2025-03-05T18:45:42.576Z"
       , scores: []
+      , totalScores: []
       , goOuts: ["", "", "", "", "", "", "", "", "", "", ""]
   }
   , { 
@@ -62,6 +64,7 @@ const dummyGameResults: GameResult[] = [
       , ["Eric", [31, 5, 7, 0, 0, 5, 21, 27, 3, 0, 0]]
       , ["Erin", [19, 0, 14, 15, 0, 0, 25, 15, 0, 12, 11]]
       , ["Tom", [18, 0, 0, 9, 5, 22, 0, 4, 0, 37, 7]]]
+      , totalScores: []
       , "goOuts": ["Andrew", "Erin", "Tom", "Eric", "Erin", "Erin", "Tom", "Beril", "Erin", "Eric", "Eric"] 
     }
 ];
@@ -199,7 +202,7 @@ const addNewGameResult = (newGameResult: GameResult) => setGameResults(
 
         {/* sun icon */}
         <svg
-          className="swap-on h-8 w-8 fill-current"
+          className="swap-on h-6 w-6 fill-current"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24">
           <path
@@ -208,7 +211,7 @@ const addNewGameResult = (newGameResult: GameResult) => setGameResults(
 
         {/* moon icon */}
         <svg
-          className="swap-off h-8 w-8 fill-current"
+          className="swap-off h-6 w-6 fill-current"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24">
           <path
