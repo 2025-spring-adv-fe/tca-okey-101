@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { GameResult } from "./GameResults";
 
 interface PlayProps {
@@ -19,8 +19,9 @@ export const Play: React.FC<PlayProps> = ({
   const [startTimestamp] = useState(new Date().toISOString());
   const [scores, setScores] = useState(new Map<string, number[]>());
   const [goOuts, setGoOuts] = useState<string[]>([]);
+  const [customPoints, setCustomPoints] = useState<Map<string, string>>(new Map());
 
-  const addScore = (player: string, score: number) => {
+  const addScore = useCallback((player: string, score: number) => {
     setScores((prev) => {
       const updated = new Map(prev);
       const current = updated.get(player) ?? [];
@@ -28,7 +29,7 @@ export const Play: React.FC<PlayProps> = ({
       updated.set(player, current);
       return updated;
     });
-  };
+  }, []);
 
   const undoLastScore = (player: string) => {
     setScores((prev) => {
@@ -40,10 +41,13 @@ export const Play: React.FC<PlayProps> = ({
     });
   };
 
-  const setGoOut = (player: string) => {
-    setGoOuts((prev) => [...prev, player]);
-    addScore(player, 0);
-  };
+  const setGoOut = useCallback((player: string) => {
+    setGoOuts((prev) => {
+      if (prev.includes(player)) return prev;
+      return [...prev, player];
+    });
+    addScore(player, 101);
+  }, [addScore]);
 
   const getTotal = (player: string): number => {
     const list = scores.get(player) ?? [];
@@ -115,7 +119,8 @@ export const Play: React.FC<PlayProps> = ({
                     <td>{player}</td>
                     <td className="flex flex-wrap gap-1">
                       {(scores.get(player) ?? []).map((s, i) => (
-                        <span key={i} className="badge badge-sm text-xs">
+                        <span key={i} 
+                              className={`badge badge-sm text-xs ${goOuts.includes(player) ? "badge-secondary" : "badge"}`}>
                           {s}
                         </span>
                       ))}
@@ -150,7 +155,8 @@ export const Play: React.FC<PlayProps> = ({
           <h3 className="card-title">Add Score</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             {getOrderedByScore().map((p) => (
-              <div key={p} className="flex flex-col items-start">
+              <div key={p} 
+                   className={`flex flex-col items-start ${goOuts.includes(p) ? "opacity-50" : ""}`}>
                 <span className="font-semibold mb-1">{p}</span>
                 <div className="flex flex-wrap gap-1">
                   {[0, 5, 10, 20, 50, 101, 202].map((v) => (
@@ -158,10 +164,36 @@ export const Play: React.FC<PlayProps> = ({
                       key={v}
                       className="btn btn-xs btn-outline"
                       onClick={() => addScore(p, v)}
+                      disabled={goOuts.includes(p)}
                     >
                       {v > 0 ? "+" + v : v}
                     </button>
                   ))}
+                  <input
+                    type="number"
+                    className="input input-xs input-bordered w-16"
+                    placeholder="..."
+                    onChange={(e) =>
+                      setCustomPoints((prev) => new Map(prev).set(p, e.target.value))
+                    }
+                    value={customPoints.get(p) ?? ""}
+                    disabled={goOuts.includes(p)}
+                  />
+
+                  <button
+                    className="btn btn-xs btn-primary"
+                    onClick={() => {
+                      const raw = customPoints.get(p);
+                      const val = Number(raw);
+                      if (!isNaN(val) && raw !== "" && !goOuts.includes(p)) {
+                        addScore(p, val);
+                        setCustomPoints((prev) => new Map(prev).set(p, ""));
+                      }
+                    }}
+                    disabled={goOuts.includes(p)}
+                  >
+                    Add
+                  </button>
                 </div>
               </div>
             ))}
