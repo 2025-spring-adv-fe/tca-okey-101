@@ -17,19 +17,46 @@ export const Play: React.FC<PlayProps> = ({
   const nav = useNavigate();
 
   const [startTimestamp] = useState(new Date().toISOString());
-  const [scores, setScores] = useState(new Map<string, number[]>());
+  
+  const [scores, setScores] = useState(
+    new Map<string, number[]>(
+      currentPlayers.map(
+        x => [
+          x 
+          , []
+        ]
+      )
+    )
+  );
+
   const [goOuts, setGoOuts] = useState<string[]>([]);
   const [customPoints, setCustomPoints] = useState<Map<string, string>>(new Map());
 
-  const addScore = useCallback((player: string, score: number) => {
-    setScores((prev) => {
-      const updated = new Map(prev);
-      const current = updated.get(player) ?? [];
-      current.push(score);
-      updated.set(player, current);
-      return updated;
-    });
-  }, []);
+  const addScore = (player: string, score: number) => setScores(
+    new Map(
+      [...scores].map(
+        x => x[0] !== player
+          ? x
+          : [
+            player
+            , [
+              ...x[1]
+              , score
+            ]
+          ]
+      )
+    )
+  );
+
+  // const addScore = useCallback((player: string, score: number) => {
+  //   setScores((prev) => {
+  //     const updated = new Map(prev);
+  //     const current = updated.get(player) ?? [];
+  //     current.push(score);
+  //     updated.set(player, current);
+  //     return updated;
+  //   });
+  // }, []);
 
   const undoLastScore = (player: string) => {
     setScores((prev) => {
