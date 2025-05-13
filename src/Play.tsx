@@ -186,7 +186,7 @@ export const Play: React.FC<PlayProps> = ({
                    className={`flex flex-col items-start ${goOuts.includes(p) ? "opacity-50" : ""}`}>
                 <span className="font-semibold mb-1">{p}</span>
                 <div className="flex flex-wrap gap-1">
-                  {[0, 5, 10, 20, 50, 101, 202].map((v) => (
+                  {[5, 10, 20, 50, 101, 202].map((v) => (
                     <button
                       key={v}
                       className="btn btn-xs btn-outline"
